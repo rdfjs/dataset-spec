@@ -96,130 +96,150 @@
 
     <p>
       <dfn>size</dfn>
-      <p>A non-negative integer that specifies the number of quads in the set.</p>
     </p>
+    <p>A non-negative integer that specifies the number of quads in the set.</p>
 
     <h3>Methods</h3>
 
     <p>
       <dfn>add</dfn>
-      <p>Adds the specified <code>quad</code> to the dataset.</p>
-      <p>This method returns the dataset instance it was called on.</p>
-      <p>Existing quads, as defined in <code>Quad.equals</code>, will be ignored.</p>
     </p>
+    <p>Adds the specified <code>quad</code> to the dataset.</p>
+    <p>This method returns the dataset instance it was called on.</p>
+    <p>Existing quads, as defined in <code>Quad.equals</code>, will be ignored.</p>
+
     <p>
       <dfn>addAll</dfn>
-      <p>Imports the <code>quads</code> in to this dataset.</p>
-      <p>This method returns the dataset instance it was called on.</p>
-      <p>This method differes from <a>Dataset.merge</a> in that it adds all <code>quads</code> to the current instance, rather than combining <code>quads</code> and the current instance to create a new instance.</p>
     </p>
+    <p>Imports the <code>quads</code> in to this dataset.</p>
+    <p>This method returns the dataset instance it was called on.</p>
+    <p>This method differes from <a>Dataset.merge</a> in that it adds all <code>quads</code> to the current instance, rather than combining <code>quads</code> and the current instance to create a new instance.</p>
+
     <p>
       <dfn>delete</dfn>
-      <p>Removes the specified <code>quad</code> from the dataset.</p>
-      <p>This method returns the dataset instance it was called on.</p>
     </p>
+    <p>Removes the specified <code>quad</code> from the dataset.</p>
+    <p>This method returns the dataset instance it was called on.</p>
+
     <p>
       <dfn>deleteMatches</dfn>
-      <p>This method removes those quads in the current instance which match the given arguments, that is, for each quad in this dataset, it is removed, if:</p>
-      <ul>
-        <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
-        <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
-        <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
-        <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
-      </ul>
     </p>
+    <p>This method removes those quads in the current instance which match the given arguments, that is, for each quad in this dataset, it is removed, if:</p>
+    <ul>
+      <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
+      <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
+      <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
+      <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
+    </ul>
+
     <p>
       <dfn>difference</dfn>
-      <p>Returns a new dataset which contains alls quads from the current dataset, not included in the given dataset.</p>
     </p>
+    <p>Returns a new dataset which contains alls quads from the current dataset, not included in the given dataset.</p>
+
     <p>
       <dfn>equals</dfn>
-      <p>Returns true if the current instance contains the same graph structure as the given dataset.</p>
-      <p>Blank Nodes will be normalized.</p>
     </p>
+    <p>Returns true if the current instance contains the same graph structure as the given dataset.</p>
+    <p>Blank Nodes will be normalized.</p>
+
     <p>
       <dfn>every</dfn>
-      <p>Universal quantification method, tests whether every quad in the dataset passes the test implemented by the provided <code>iteratee</code>.</p>
-      <p>This method will return boolean false when the first quad is found that does not pass the test.</p>
-      <p>Note: this method is aligned with Array.prototype.every() in ECMAScript-262.</p>
     </p>
+    <p>Universal quantification method, tests whether every quad in the dataset passes the test implemented by the provided <code>iteratee</code>.</p>
+    <p>This method will return boolean false when the first quad is found that does not pass the test.</p>
+    <p>Note: this method is aligned with Array.prototype.every() in ECMAScript-262.</p>
+
     <p>
       <dfn>filter</dfn>
-      <p>Creates a new dataset with all the quads which pass the test implemented by the provided <code>iteratee</code>.</p>
-      <p>Note: this method is aligned with Array.prototype.filter() in ECMAScript-262.</p>
     </p>
+    <p>Creates a new dataset with all the quads which pass the test implemented by the provided <code>iteratee</code>.</p>
+    <p>Note: this method is aligned with Array.prototype.filter() in ECMAScript-262.</p>
+
     <p>
       <dfn>forEach</dfn>
-      <p>Executes the provided <code>iteratee</code> once on each quad in the dataset.</p>
-      <p>Note: this method is aligned with Array.prototype.forEach() in ECMAScript-262.</p>
     </p>
+    <p>Executes the provided <code>iteratee</code> once on each quad in the dataset.</p>
+    <p>Note: this method is aligned with Array.prototype.forEach() in ECMAScript-262.</p>
+
     <p>
       <dfn>has</dfn>
-      <p>Determines whether a dataset includes a certain quad, returning true or false as appropriate.</p>
     </p>
+    <p>Determines whether a dataset includes a certain quad, returning true or false as appropriate.</p>
+
     <p>
       <dfn>import</dfn>
-      <p>Imports all quads from the given stream into the dataset.</p>
-      <p>The stream events <code>end</code> and <code>error</code> are wrapped into a Promise.</p>
     </p>
+    <p>Imports all quads from the given stream into the dataset.</p>
+    <p>The stream events <code>end</code> and <code>error</code> are wrapped into a Promise.</p>
+
     <p>
       <dfn>intersection</dfn>
-      <p>Returns a new dataset which contains alls quads from the current dataset, which are also included in the given dataset.</p>
     </p>
+    <p>Returns a new dataset which contains alls quads from the current dataset, which are also included in the given dataset.</p>
+
     <p>
       <dfn>map</dfn>
-      <p>Returns a new dataset which contains all quads returned by the <code>iteratee</code>, which is called for each quad in the current dataset.</p>
     </p>
+    <p>Returns a new dataset which contains all quads returned by the <code>iteratee</code>, which is called for each quad in the current dataset.</p>
+
     <p>
       <dfn>match</dfn>
-      <p>This method returns a new dataset which is comprised of all those quads in the current instance which match the given arguments as defined in the RDFJS spec <code>Source.match</code>.</p>
-      <p>
-        This method returns a new dataset which is comprised of all those quads in the current instance which match the given arguments, that is, for each quad in this dataset, it is included in the output dataset, if:</p>  
-      <strong>describe this only once</strong>
-      <ul>
-        <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
-        <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
-        <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
-        <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
-      </ul>
-
-     <p> This method implements AND functionality, so only quads matching all of the given non-null arguments will be included in the result.</p>
-      <p>Note, this method always returns a new <a>Dataset</a>, even if that <a>Dataset</a> contains no <code>Quad</code>s.</p>
-      <p>Note, <a>Dataset</a>s represent Sets of <code>Quad</code>s, the order is arbitrary, so this method may result in differing results when called repeatedly.</p>
     </p>
+    <p>This method returns a new dataset which is comprised of all those quads in the current instance which match the given arguments as defined in the RDFJS spec <code>Source.match</code>.</p>
+    <p>This method returns a new dataset which is comprised of all those quads in the current instance which match the given arguments, that is, for each quad in this dataset, it is included in the output dataset, if:</p>
+    <strong>describe this only once</strong>
+    <ul>
+      <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
+      <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
+      <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
+      <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
+    </ul>
+
+     <p>This method implements AND functionality, so only quads matching all of the given non-null arguments will be included in the result.</p>
+    <p>Note, this method always returns a new <a>Dataset</a>, even if that <a>Dataset</a> contains no <code>Quad</code>s.</p>
+    <p>Note, <a>Dataset</a>s represent Sets of <code>Quad</code>s, the order is arbitrary, so this method may result in differing results when called repeatedly.</p>
+
     <p>
       <dfn>merge</dfn>
-      <p>Returns a new <a>Dataset</a> which is a concatenation of this dataset and the <code>quads</code> given as an argument.</p>
     </p>
+    <p>Returns a new <a>Dataset</a> which is a concatenation of this dataset and the <code>quads</code> given as an argument.</p>
+
     <p>
       <dfn>some</dfn>
-      <p>Existential quantification method, tests whether some quads in the dataset passes the test implemented by the provided <code>iteratee</code>.</p>
-      <p>This method will return boolean true when the first quad is found that passes the test.</p>
-      <p>Note: this method is aligned with Array.prototype.some() in ECMAScript-262.</p>
     </p>
+    <p>Existential quantification method, tests whether some quads in the dataset passes the test implemented by the provided <code>iteratee</code>.</p>
+    <p>This method will return boolean true when the first quad is found that passes the test.</p>
+    <p>Note: this method is aligned with Array.prototype.some() in ECMAScript-262.</p>
+
     <p>
       <dfn>toArray</dfn>
-      <p>Returns the set of quads within the dataset as a host language native sequence, for example an Array in ECMAScript-262.</p>
-      <p>Note: a sequence in [WEBIDL] is passed by value, not by reference.</p>
-      <p>Note: the order of the quads within the returned sequence is arbitrary, since a <a>Dataset</a> is an unordered set.</>
     </p>
+    <p>Returns the set of quads within the dataset as a host language native sequence, for example an Array in ECMAScript-262.</p>
+    <p>Note: a sequence in [WEBIDL] is passed by value, not by reference.</p>
+    <p>Note: the order of the quads within the returned sequence is arbitrary, since a <a>Dataset</a> is an unordered set.</p>
+
+
     <p>
       <dfn>toCanonical</dfn>
-      <p>Returns a N-Triples string representation of the dataset, preprocessed with <a href="https://json-ld.github.io/normalization/spec/">RDF Dataset Normalization</a> algorithm.</p>
     </p>
+    <p>Returns a N-Triples string representation of the dataset, preprocessed with <a href="https://json-ld.github.io/normalization/spec/">RDF Dataset Normalization</a> algorithm.</p>
+
     <p>
       <dfn>toStream</dfn>
-      <p>Returns a stream which contains all quads of the dataset.</p>
     </p>
+    <p>Returns a stream which contains all quads of the dataset.</p>
+
     <p>
       <dfn>toString</dfn>
-      <p>Returns a N-Triples string representation of the dataset.</p>
-      <p>No normalization is done before, so the results for the same quads may vary based on the Dataset implementation.</p>
     </p>
+    <p>Returns a N-Triples string representation of the dataset.</p>
+    <p>No normalization is done before, so the results for the same quads may vary based on the Dataset implementation.</p>
+
     <p>
       <dfn>iterator</dfn>
-      <p>Returns a ECMAScript 2015 iterator object for the dataset.</>
     </p>
+    <p>Returns a ECMAScript 2015 iterator object for the dataset.</p>
   </section>
 
   <section data-dfn-for="DatasetFactory">
@@ -233,8 +253,8 @@
 
     <p>
       <dfn>dataset</dfn>
-      <p>Returns a new dataset and imports all quads, if given.</p>
     </p>
+    <p>Returns a new dataset and imports all quads, if given.</p>
   </section>
 
   <section data-dfn-for="QuadFilterIteratee">
@@ -248,8 +268,8 @@
 
     <p>
       <dfn>test</dfn>
-      <p>A callable function that returns true if the input quad passes the test this function implements.</p>
     </p>
+    <p>A callable function that returns true if the input quad passes the test this function implements.</p>
   </section>
 
   <section data-dfn-for="QuadMapIteratee">
@@ -263,9 +283,9 @@
 
     <p>
       <dfn>map</dfn>
-      <p>A callable function which can be executed on a quad and returns a quad.</p>
-      <p>The returned quad can be the given quad or a new one.</p>
     </p>
+    <p>A callable function which can be executed on a quad and returns a quad.</p>
+    <p>The returned quad can be the given quad or a new one.</p>
   </section>
 
   <section data-dfn-for="QuadRunIteratee">
@@ -279,8 +299,8 @@
 
     <p>
       <dfn>run</dfn>
-      <p>A callable function which can be executed on a quad.</p>
     </p>
+    <p>A callable function which can be executed on a quad.</p>
   </section>
 </section>
 </body>
