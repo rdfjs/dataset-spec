@@ -70,7 +70,7 @@
       boolean                           has (Quad quad);
       Dataset                           match (optional Term subject, optional Term predicate, optional Term object, optional Term graph);
       any                               reduce (QuadReduceIteratee iteratee, optional any initialValue);
-      sequence&lt;Quad&gt;              toArray ();
+      sequence&lt;Quad&gt;                    toArray ();
       Iterator                          iterator ();
     };
     </pre>
@@ -164,7 +164,7 @@
       boolean                           every (QuadFilterIteratee iteratee);
       Dataset                           filter (QuadFilterIteratee iteratee);
       void                              forEach (QuadRunIteratee iteratee);
-      Promise&lt;Dataset&gt;            import (Stream stream);
+      Promise&lt;Dataset&gt;                  import (Stream stream);
       Dataset                           intersection (Dataset other);
       Dataset                           map (QuadMapIteratee iteratee);
       Dataset                           merge ((Dataset or sequence&lt;Quad&gt;) quads);
