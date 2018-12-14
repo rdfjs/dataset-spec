@@ -58,11 +58,11 @@
 <section>
   <h2>Data interfaces</h2>
 
-  <section data-dfn-for="MinimalDataset">
-    <h3><dfn>MinimalDataset</dfn> interface</h3>
+  <section data-dfn-for="CoreDataset">
+    <h3><dfn>CoreDataset</dfn> interface</h3>
 
     <pre class="idl">
-    interface MinimalDataset {
+    interface CoreDataset {
       readonly attribute unsigned long  size;
       Dataset                           add (Quad quad);
       Dataset                           delete (Quad quad);
@@ -126,14 +126,14 @@
     </ul>
 
      <p>This method implements AND functionality, so only quads matching all of the given non-null arguments will be included in the result.</p>
-    <p>Note: this method always returns a new <a>MinimalDataset</a>, even if that dataset contains no quads.</p>
+    <p>Note: this method always returns a new <a>CoreDataset</a>, even if that dataset contains no quads.</p>
     <p>Note: <a>Dataset</a>s represent Sets of <code>Quad</code>s, the order is arbitrary, so this method may result in differing results when called repeatedly.</p>
 
     <p>
       <dfn>reduce</dfn>
     </p>
     <p>
-      This method calls the <code>iteratee</code> for each <code>quad</code> of the <a>MinimalDataset</a>.
+      This method calls the <code>iteratee</code> for each <code>quad</code> of the <a>CoreDataset</a>.
       The first time the <code>iteratee</code> is called, the <code>accumulator</code> value is the <code>initialValue</code> or, if not given, equals to the first quad of the Dataset.
       The return value of the <code>iteratee</code> is used as <code>accumulator</code> value for the next calls.
     </p>
@@ -145,7 +145,7 @@
     </p>
     <p>Returns the set of quads within the dataset as a host language native sequence, for example an Array in ECMAScript-262.</p>
     <p>Note: a sequence in [WEBIDL] is passed by value, not by reference.</p>
-    <p>Note: the order of the quads within the returned sequence is arbitrary, since a <a>MinimalDataset</a> is an unordered set.</p>
+    <p>Note: the order of the quads within the returned sequence is arbitrary, since a <a>CoreDataset</a> is an unordered set.</p>
 
     <p>
       <dfn>iterator</dfn>
@@ -157,7 +157,7 @@
     <h3><dfn>Dataset</dfn> interface</h3>
 
     <pre class="idl">
-    interface Dataset : MinimalDataset {
+    interface Dataset : CoreDataset {
       Dataset                           addAll ((Dataset or sequence&lt;Quad&gt;) quads);
       Dataset                           deleteMatches (optional Term subject, optional Term predicate, optional Term object, optional Term graph);
       Dataset                           difference (Dataset other);
@@ -176,8 +176,8 @@
     </pre>
 
     <p>
-      A <a>MinimalDataset</a> implementation may implement already part of the <a>Dataset</a> interface.
-      If a <a>Dataset</a> implementation acts as a wrapper for a <a>MinimalDataset</a>, the wrapped dataset methods should be used.
+      A <a>CoreDataset</a> implementation may implement already part of the <a>Dataset</a> interface.
+      If a <a>Dataset</a> implementation acts as a wrapper for a <a>CoreDataset</a>, the wrapped dataset methods should be used.
     </p>
 
     <h3>Attributes</h3>
