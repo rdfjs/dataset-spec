@@ -58,32 +58,19 @@
 <section>
   <h2>Data interfaces</h2>
 
-  <section data-dfn-for="Dataset">
-    <h3><dfn>Dataset</dfn> interface</h3>
+  <section data-dfn-for="DatasetCore">
+    <h3><dfn>DatasetCore</dfn> interface</h3>
 
     <pre class="idl">
-    interface Dataset {
+    interface DatasetCore {
       readonly attribute unsigned long  size;
       Dataset                           add (Quad quad);
-      Dataset                           addAll ((Dataset or sequence&lt;Quad&gt;) quads);
       Dataset                           delete (Quad quad);
-      Dataset                           deleteMatches (optional Term subject, optional Term predicate, optional Term object, optional Term graph);
-      Dataset                           difference (Dataset other);
       boolean                           equals (Dataset other);
-      boolean                           every (QuadFilterIteratee iteratee);
-      Dataset                           filter (QuadFilterIteratee iteratee);
-      void                              forEach (QuadRunIteratee iteratee);
       boolean                           has (Quad quad);
-      Promise&lt;Dataset&gt;            import (Stream stream);
-      Dataset                           intersection (Dataset other);
-      Dataset                           map (QuadMapIteratee iteratee);
       Dataset                           match (optional Term subject, optional Term predicate, optional Term object, optional Term graph);
-      Dataset                           merge ((Dataset or sequence&lt;Quad&gt;) quads);
-      boolean                           some (QuadFilterIteratee iteratee);
-      sequence&lt;Quad&gt;              toArray ();
-      String                            toCanonical ();
-      Stream                            toStream ();
-      String                            toString ();
+      any                               reduce (QuadReduceIteratee iteratee, optional any initialValue);
+      sequence&lt;Quad&gt;                    toArray ();
       Iterator                          iterator ();
     };
     </pre>
@@ -109,17 +96,100 @@
     <p>Existing quads, as defined in <code>Quad.equals</code>, will be ignored.</p>
 
     <p>
+      <dfn>delete</dfn>
+    </p>
+    <p>Removes the specified <code>quad</code> from the dataset.</p>
+    <p>This method returns the dataset instance it was called on.</p>
+
+    <p>
+      <dfn>equals</dfn>
+    </p>
+    <p>Returns true if the current instance contains the same graph structure as the given dataset.</p>
+    <p>Blank Nodes will be normalized.</p>
+
+    <p>
+      <dfn>has</dfn>
+    </p>
+    <p>Determines whether a dataset includes a certain quad, returning true or false as appropriate.</p>
+
+    <p>
+      <dfn>match</dfn>
+    </p>
+    <p>This method returns a new dataset that is comprised of all quads in the current instance matching the given arguments as defined in the RDFJS spec <code>Source.match</code>.</p>
+    <p>This method returns a new dataset that is comprised of all quads in the current instance matching the given arguments, that is, for each quad in this dataset, it is included in the output dataset, if:</p>
+    <strong>describe this only once</strong>
+    <ul>
+      <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
+      <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
+      <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
+      <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
+    </ul>
+
+     <p>This method implements AND functionality, so only quads matching all of the given non-null arguments will be included in the result.</p>
+    <p>Note: this method always returns a new <a>DatasetCore</a>, even if that dataset contains no quads.</p>
+    <p>Note: <a>Dataset</a>s represent Sets of <code>Quad</code>s, the order is arbitrary, so this method may result in differing results when called repeatedly.</p>
+
+    <p>
+      <dfn>reduce</dfn>
+    </p>
+    <p>
+      This method calls the <code>iteratee</code> for each <code>quad</code> of the <a>DatasetCore</a>.
+      The first time the <code>iteratee</code> is called, the <code>accumulator</code> value is the <code>initialValue</code> or, if not given, equals to the first quad of the Dataset.
+      The return value of the <code>iteratee</code> is used as <code>accumulator</code> value for the next calls.
+    </p>
+    <p>This method returns the return value of the last <code>iteratee</code> call.</p>
+    <p>Note: This method is aligned with Array.prototype.reduce() in ECMAScript-262.</p>
+
+    <p>
+      <dfn>toArray</dfn>
+    </p>
+    <p>Returns the set of quads within the dataset as a host language native sequence, for example an Array in ECMAScript-262.</p>
+    <p>Note: a sequence in [WEBIDL] is passed by value, not by reference.</p>
+    <p>Note: the order of the quads within the returned sequence is arbitrary, since a <a>DatasetCore</a> is an unordered set.</p>
+
+    <p>
+      <dfn>iterator</dfn>
+    </p>
+    <p>Returns a ECMAScript 2015 iterator object for the dataset.</p>
+  </section>
+
+  <section data-dfn-for="Dataset">
+    <h3><dfn>Dataset</dfn> interface</h3>
+
+    <pre class="idl">
+    interface Dataset : DatasetCore {
+      Dataset                           addAll ((Dataset or sequence&lt;Quad&gt;) quads);
+      Dataset                           deleteMatches (optional Term subject, optional Term predicate, optional Term object, optional Term graph);
+      Dataset                           difference (Dataset other);
+      boolean                           every (QuadFilterIteratee iteratee);
+      Dataset                           filter (QuadFilterIteratee iteratee);
+      void                              forEach (QuadRunIteratee iteratee);
+      Promise&lt;Dataset&gt;                  import (Stream stream);
+      Dataset                           intersection (Dataset other);
+      Dataset                           map (QuadMapIteratee iteratee);
+      Dataset                           merge ((Dataset or sequence&lt;Quad&gt;) quads);
+      boolean                           some (QuadFilterIteratee iteratee);
+      String                            toCanonical ();
+      Stream                            toStream ();
+      String                            toString ();
+    };
+    </pre>
+
+    <p>
+      A <a>DatasetCore</a> implementation may already implement part of the <a>Dataset</a> interface.
+      If a <a>Dataset</a> implementation acts as a wrapper for a <a>DatasetCore</a>, the wrapped dataset methods should be used.
+    </p>
+
+    <h3>Attributes</h3>
+
+    <h3>Methods</h3>
+
+    <p>
       <dfn>addAll</dfn>
     </p>
     <p>Imports the <code>quads</code> into this dataset.</p>
     <p>This method returns the dataset instance it was called on.</p>
     <p>This method differs from <a>Dataset.merge</a> in that it adds all <code>quads</code> to the current instance, rather than combining <code>quads</code> and the current instance to create a new instance.</p>
-
-    <p>
-      <dfn>delete</dfn>
-    </p>
-    <p>Removes the specified <code>quad</code> from the dataset.</p>
-    <p>This method returns the dataset instance it was called on.</p>
 
     <p>
       <dfn>deleteMatches</dfn>
@@ -136,12 +206,6 @@
       <dfn>difference</dfn>
     </p>
     <p>Returns a new dataset that contains alls quads from the current dataset, not included in the given dataset.</p>
-
-    <p>
-      <dfn>equals</dfn>
-    </p>
-    <p>Returns true if the current instance contains the same graph structure as the given dataset.</p>
-    <p>Blank Nodes will be normalized.</p>
 
     <p>
       <dfn>every</dfn>
@@ -164,11 +228,6 @@
     <p>Note: this method is aligned with Array.prototype.forEach() in ECMAScript-262.</p>
 
     <p>
-      <dfn>has</dfn>
-    </p>
-    <p>Determines whether a dataset includes a certain quad, returning true or false as appropriate.</p>
-
-    <p>
       <dfn>import</dfn>
     </p>
     <p>Imports all quads from the given stream into the dataset.</p>
@@ -185,23 +244,6 @@
     <p>Returns a new dataset containing all quads returned by applying <code>iteratee</code> to each quad in the current dataset.</p>
 
     <p>
-      <dfn>match</dfn>
-    </p>
-    <p>This method returns a new dataset that is comprised of all quads in the current instance matching the given arguments as defined in the RDFJS spec <code>Source.match</code>.</p>
-    <p>This method returns a new dataset that is comprised of all quads in the current instance matching the given arguments, that is, for each quad in this dataset, it is included in the output dataset, if:</p>
-    <strong>describe this only once</strong>
-    <ul>
-      <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
-      <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
-      <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
-      <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
-    </ul>
-
-     <p>This method implements AND functionality, so only quads matching all of the given non-null arguments will be included in the result.</p>
-    <p>Note: this method always returns a new <a>Dataset</a>, even if that <a>Dataset</a> contains no <code>Quad</code>s.</p>
-    <p>Note: <a>Dataset</a>s represent Sets of <code>Quad</code>s, the order is arbitrary, so this method may result in differing results when called repeatedly.</p>
-
-    <p>
       <dfn>merge</dfn>
     </p>
     <p>Returns a new <a>Dataset</a> that is a concatenation of this dataset and the <code>quads</code> given as an argument.</p>
@@ -212,14 +254,6 @@
     <p>Existential quantification method, tests whether some quads in the dataset pass the test implemented by the provided <code>iteratee</code>.</p>
     <p>This method immediately returns boolean true once a quad that passes the test is found.</p>
     <p>Note: this method is aligned with Array.prototype.some() in ECMAScript-262.</p>
-
-    <p>
-      <dfn>toArray</dfn>
-    </p>
-    <p>Returns the set of quads within the dataset as a host language native sequence, for example an Array in ECMAScript-262.</p>
-    <p>Note: a sequence in [WEBIDL] is passed by value, not by reference.</p>
-    <p>Note: the order of the quads within the returned sequence is arbitrary, since a <a>Dataset</a> is an unordered set.</p>
-
 
     <p>
       <dfn>toCanonical</dfn>
@@ -236,11 +270,6 @@
     </p>
     <p>Returns an N-Triples string representation of the dataset.</p>
     <p>No normalization is done before, so the results for the same quads may vary based on the Dataset implementation.</p>
-
-    <p>
-      <dfn>iterator</dfn>
-    </p>
-    <p>Returns a ECMAScript 2015 iterator object for the dataset.</p>
   </section>
 
   <section data-dfn-for="DatasetFactory">
@@ -287,6 +316,21 @@
     </p>
     <p>A callable function that can be executed on a quad and returns a quad.</p>
     <p>The returned quad can be the given quad or a new one.</p>
+  </section>
+
+  <section data-dfn-for="QuadReduceIteratee">
+    <h3><dfn>QuadReduceIteratee</dfn> interface</h3>
+
+    <pre class="idl">
+    interface QuadReduceIteratee {
+      void run (any accumulator, Quad quad, Dataset dataset);
+    };
+    </pre>
+
+    <p>
+      <dfn>run</dfn>
+    </p>
+    <p>A callable function that can be executed on an accumulator and quad and returns a new accumulator.</p>
   </section>
 
   <section data-dfn-for="QuadRunIteratee">
