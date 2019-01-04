@@ -170,11 +170,11 @@
       Promise&lt;Dataset&gt;                  import (Stream stream);
       Dataset                           intersection (Dataset other);
       Dataset                           map (QuadMapIteratee iteratee);
-      Dataset                           merge ((Dataset or sequence&lt;Quad&gt;) quads);
       boolean                           some (QuadFilterIteratee iteratee);
       String                            toCanonical ();
       Stream                            toStream ();
       String                            toString ();
+       Dataset                           union (Dataset quads);
     };
     </pre>
 
@@ -247,11 +247,6 @@
     <p>Returns a new dataset containing all quads returned by applying <code>iteratee</code> to each quad in the current dataset.</p>
 
     <p>
-      <dfn>merge</dfn>
-    </p>
-    <p>Returns a new <a>Dataset</a> that is a concatenation of this dataset and the <code>quads</code> given as an argument.</p>
-
-    <p>
       <dfn>some</dfn>
     </p>
     <p>Existential quantification method, tests whether some quads in the dataset pass the test implemented by the provided <code>iteratee</code>.</p>
@@ -273,6 +268,11 @@
     </p>
     <p>Returns an N-Quads string representation of the dataset.</p>
     <p>No normalization is done before, so the results for the same quads may vary based on the Dataset implementation.</p>
+
+    <p>
+      <dfn>union</dfn>
+    </p>
+    <p>Returns a new <a>Dataset</a> that is a concatenation of this dataset and the <code>quads</code> given as an argument.</p>
   </section>
 
   <section data-dfn-for="DatasetFactory">
