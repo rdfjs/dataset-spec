@@ -74,7 +74,8 @@
       Dataset                           match (optional Term subject, optional Term predicate, optional Term object, optional Term graph);
       any                               reduce (QuadReduceIteratee iteratee, optional any initialValue);
       sequence&lt;Quad&gt;                    toArray ();
-      Iterator                          iterator ();
+
+      iterable&lt;Quad&gt;;
     };
     </pre>
 
@@ -149,11 +150,6 @@
     <p>Returns the set of quads within the dataset as a host language native sequence, for example an Array in ECMAScript-262.</p>
     <p>Note: a sequence in [WEBIDL] is passed by value, not by reference.</p>
     <p>Note: the order of the quads within the returned sequence is arbitrary, since a <a>DatasetCore</a> is an unordered set.</p>
-
-    <p>
-      <dfn>iterator</dfn>
-    </p>
-    <p>Returns a ECMAScript 2015 iterator object for the dataset.</p>
   </section>
 
   <section data-dfn-for="Dataset">
