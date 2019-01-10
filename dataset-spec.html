@@ -114,8 +114,8 @@
       This method returns a new dataset that is comprised of all quads in the current instance matching the given arguments.
       The logic described in <a href="#quad-matching">Quad Matching</a> is applied for each quad in this dataset to check if it's included in the output dataset.
     </p>
-    <p>Note: this method always returns a new <a>DatasetCore</a>, even if that dataset contains no quads.</p>
-    <p>Note: <a>Dataset</a>s represent Sets of <code>Quad</code>s, the order is arbitrary, so this method may result in differing results when called repeatedly.</p>
+    <p>Note: This method always returns a new <a>DatasetCore</a>, even if that dataset contains no quads.</p>
+    <p>Note: Since a <a>DatasetCore</a> is an unordered set, the order of the quads within the returned sequence is arbitrary.</p>
   </section>
 
   <section data-dfn-for="Dataset">
@@ -185,19 +185,19 @@
     <p>Universal quantification method, tests whether every quad in the dataset passes the test implemented by the provided <code>iteratee</code>.</p>
     <p>This method immediately returns boolean false once a quad that does not pass the test is found.</p>
     <p>This method always returns boolean true on an empty dataset.</p>
-    <p>Note: this method is aligned with Array.prototype.every() in ECMAScript-262.</p>
+    <p>Note: This method is aligned with Array.prototype.every() in ECMAScript-262.</p>
 
     <p>
       <dfn>filter</dfn>
     </p>
     <p>Creates a new dataset with all the quads that pass the test implemented by the provided <code>iteratee</code>.</p>
-    <p>Note: this method is aligned with Array.prototype.filter() in ECMAScript-262.</p>
+    <p>Note: This method is aligned with Array.prototype.filter() in ECMAScript-262.</p>
 
     <p>
       <dfn>forEach</dfn>
     </p>
     <p>Executes the provided <code>iteratee</code> once on each quad in the dataset.</p>
-    <p>Note: this method is aligned with Array.prototype.forEach() in ECMAScript-262.</p>
+    <p>Note: This method is aligned with Array.prototype.forEach() in ECMAScript-262.</p>
 
     <p>
       <dfn>import</dfn>
@@ -231,14 +231,14 @@
     </p>
     <p>Existential quantification method, tests whether some quads in the dataset pass the test implemented by the provided <code>iteratee</code>.</p>
     <p>This method immediately returns boolean true once a quad that passes the test is found.</p>
-    <p>Note: this method is aligned with Array.prototype.some() in ECMAScript-262.</p>
+    <p>Note: This method is aligned with Array.prototype.some() in ECMAScript-262.</p>
 
     <p>
       <dfn>toArray</dfn>
     </p>
     <p>Returns the set of quads within the dataset as a host language native sequence, for example an Array in ECMAScript-262.</p>
     <p>Note: a sequence in [WEBIDL] is passed by value, not by reference.</p>
-    <p>Note: the order of the quads within the returned sequence is arbitrary, since a <a>DatasetCore</a> is an unordered set.</p>
+    <p>Note: Since a <a>DatasetCore</a> is an unordered set, the order of the quads within the returned sequence is arbitrary.</p>
 
     <p>
       <dfn>toCanonical</dfn>
