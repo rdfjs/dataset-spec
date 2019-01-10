@@ -110,17 +110,10 @@
     <p>
       <dfn>match</dfn>
     </p>
-    <p>This method returns a new dataset that is comprised of all quads in the current instance matching the given arguments as defined in the RDFJS spec <code>Source.match</code>.</p>
-    <p>This method returns a new dataset that is comprised of all quads in the current instance matching the given arguments, that is, for each quad in this dataset, it is included in the output dataset, if:</p>
-    <strong>describe this only once</strong>
-    <ul>
-      <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
-      <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
-      <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
-      <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
-    </ul>
-
-     <p>This method implements AND functionality, so only quads matching all of the given non-null arguments will be included in the result.</p>
+    <p>
+      This method returns a new dataset that is comprised of all quads in the current instance matching the given arguments.
+      The logic described in <a href="#quad-matching">Quad Matching</a> is applied for each quad in this dataset to check if it's included in the output dataset.
+    </p>
     <p>Note: this method always returns a new <a>DatasetCore</a>, even if that dataset contains no quads.</p>
     <p>Note: <a>Dataset</a>s represent Sets of <code>Quad</code>s, the order is arbitrary, so this method may result in differing results when called repeatedly.</p>
   </section>
@@ -169,13 +162,11 @@
     <p>
       <dfn>deleteMatches</dfn>
     </p>
-    <p>This method removes the quads in the current instance that match the given arguments, that is, for each quad in this dataset, it is removed if:</p>
-    <ul>
-      <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
-      <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
-      <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
-      <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
-    </ul>
+    <p>
+      This method removes the quads in the current instance that match the given arguments.
+      The logic described in <a href="#quad-matching">Quad Matching</a> is applied for each quad in this dataset to select the quads which will be deleted.
+    </p>
+    <p>This method returns the dataset instance it was called on.</p>
 
     <p>
       <dfn>difference</dfn>
@@ -345,6 +336,24 @@
       <dfn>run</dfn>
     </p>
     <p>A callable function that can be executed on a quad.</p>
+  </section>
+</section>
+
+<section>
+  <h2>Runtime Semantics</h2>
+
+  <section>
+    <h3>Quad Matching</h3>
+
+    <p>The methods <code>match</code> and <code>deleteMatches</code> select quads using on the following logic:</p>
+    <ul>
+      <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
+      <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
+      <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
+      <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
+    </ul>
+
+    <p>Only quads matching all of the given non-null arguments will be selected.</p>
   </section>
 </section>
 </body>
