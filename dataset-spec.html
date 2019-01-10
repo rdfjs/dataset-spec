@@ -118,6 +118,24 @@
     <p>Note: <a>Dataset</a>s represent Sets of <code>Quad</code>s, the order is arbitrary, so this method may result in differing results when called repeatedly.</p>
   </section>
 
+  <section data-dfn-for="DatasetCoreFactory">
+    <h3><dfn>DatasetCoreFactory</dfn> interface</h3>
+
+    <pre class="idl">
+    interface DatasetCoreFactory : DataFactory {
+      DatasetCore dataset (optional sequence&lt;Quad&gt; quads);
+    };
+    </pre>
+
+    <p>
+      <dfn>dataset</dfn>
+    </p>
+    <p>
+      <code>DatasetCoreFactory</code> extends the <a href="http://rdf.js.org/#datafactory-interface">DataFactory</a> interface by a <code>dataset</code> method to create instances of <code>DatasetCore</code>.
+    </p>
+    <p>Returns a new dataset and imports all quads, if given.</p>
+  </section>
+
   <section data-dfn-for="Dataset">
     <h3><dfn>Dataset</dfn> interface</h3>
 
