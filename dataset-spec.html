@@ -112,10 +112,10 @@
     </p>
     <p>
       This method returns a new dataset that is comprised of all quads in the current instance matching the given arguments.
-      The logic described in <a href="#quad-matching">Quad Matching</a> is applied for each quad in this dataset to check if it's included in the output dataset.
+      The logic described in <a href="#quad-matching">Quad Matching</a> is applied for each quad in this dataset to check if it should be included in the output dataset.
     </p>
-    <p>Note: this method always returns a new <a>DatasetCore</a>, even if that dataset contains no quads.</p>
-    <p>Note: <a>Dataset</a>s represent Sets of <code>Quad</code>s, the order is arbitrary, so this method may result in differing results when called repeatedly.</p>
+    <p>Note: This method always returns a new <a>DatasetCore</a>, even if that dataset contains no quads.</p>
+    <p>Note: Since a <a>DatasetCore</a> is an unordered set, the order of the quads within the returned sequence is arbitrary.</p>
   </section>
 
   <section data-dfn-for="Dataset">
@@ -185,19 +185,19 @@
     <p>Universal quantification method, tests whether every quad in the dataset passes the test implemented by the provided <code>iteratee</code>.</p>
     <p>This method immediately returns boolean false once a quad that does not pass the test is found.</p>
     <p>This method always returns boolean true on an empty dataset.</p>
-    <p>Note: this method is aligned with Array.prototype.every() in ECMAScript-262.</p>
+    <p>Note: This method is aligned with Array.prototype.every() in ECMAScript-262.</p>
 
     <p>
       <dfn>filter</dfn>
     </p>
     <p>Creates a new dataset with all the quads that pass the test implemented by the provided <code>iteratee</code>.</p>
-    <p>Note: this method is aligned with Array.prototype.filter() in ECMAScript-262.</p>
+    <p>Note: This method is aligned with Array.prototype.filter() in ECMAScript-262.</p>
 
     <p>
       <dfn>forEach</dfn>
     </p>
     <p>Executes the provided <code>iteratee</code> once on each quad in the dataset.</p>
-    <p>Note: this method is aligned with Array.prototype.forEach() in ECMAScript-262.</p>
+    <p>Note: This method is aligned with Array.prototype.forEach() in ECMAScript-262.</p>
 
     <p>
       <dfn>import</dfn>
@@ -219,7 +219,7 @@
       <dfn>reduce</dfn>
     </p>
     <p>
-      This method calls the <code>iteratee</code> for each <code>quad</code> of the <a>DatasetCore</a>.
+      This method calls the <code>iteratee</code> on each <code>quad</code> of the <a>DatasetCore</a>.
       The first time the <code>iteratee</code> is called, the <code>accumulator</code> value is the <code>initialValue</code> or, if not given, equals to the first quad of the Dataset.
       The return value of the <code>iteratee</code> is used as <code>accumulator</code> value for the next calls.
     </p>
@@ -231,14 +231,13 @@
     </p>
     <p>Existential quantification method, tests whether some quads in the dataset pass the test implemented by the provided <code>iteratee</code>.</p>
     <p>This method immediately returns boolean true once a quad that passes the test is found.</p>
-    <p>Note: this method is aligned with Array.prototype.some() in ECMAScript-262.</p>
+    <p>Note: This method is aligned with Array.prototype.some() in ECMAScript-262.</p>
 
     <p>
       <dfn>toArray</dfn>
     </p>
     <p>Returns the set of quads within the dataset as a host language native sequence, for example an Array in ECMAScript-262.</p>
-    <p>Note: a sequence in [WEBIDL] is passed by value, not by reference.</p>
-    <p>Note: the order of the quads within the returned sequence is arbitrary, since a <a>DatasetCore</a> is an unordered set.</p>
+    <p>Note: Since a <a>DatasetCore</a> is an unordered set, the order of the quads within the returned sequence is arbitrary.</p>
 
     <p>
       <dfn>toCanonical</dfn>
@@ -254,7 +253,7 @@
       <dfn>toString</dfn>
     </p>
     <p>Returns an N-Quads string representation of the dataset.</p>
-    <p>No normalization is done before, so the results for the same quads may vary based on the Dataset implementation.</p>
+    <p>No normalization is done beforehand, so the results for the same quads may vary based on the Dataset implementation.</p>
 
     <p>
       <dfn>union</dfn>
@@ -345,12 +344,12 @@
   <section>
     <h3>Quad Matching</h3>
 
-    <p>The methods <code>match</code> and <code>deleteMatches</code> select quads using on the following logic:</p>
+    <p>The methods <code>match</code> and <code>deleteMatches</code> select each quad for which the following logic is true:</p>
     <ul>
-      <li>calling <code>quad.subject.equals</code> with the specified subject as an argument returns true, or the subject argument is null, AND</li>
-      <li>calling <code>quad.predicate.equals</code> with the specified predicate as an argument returns true, or the predicate argument is null, AND</li>
-      <li>calling <code>quad.object.equals</code> with the specified object as an argument returns true, or the object argument is null, AND</li>
-      <li>calling <code>quad.graph.equals</code> with the specified graph as an argument returns true, or the graph argument is null</li>
+      <li>calling <code>quad.subject.equals</code> with the specified subject as argument returns true, or the subject argument is null, AND</li>
+      <li>calling <code>quad.predicate.equals</code> with the specified predicate as argument returns true, or the predicate argument is null, AND</li>
+      <li>calling <code>quad.object.equals</code> with the specified object as argument returns true, or the object argument is null, AND</li>
+      <li>calling <code>quad.graph.equals</code> with the specified graph as argument returns true, or the graph argument is null</li>
     </ul>
 
     <p>Only quads matching all of the given non-null arguments will be selected.</p>
