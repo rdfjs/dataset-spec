@@ -145,6 +145,25 @@
     <p>Note: Since a <a>DatasetCore</a> is an unordered set, the order of the quads within the returned sequence is arbitrary.</p>
   </section>
 
+  <section data-dfn-for="DatasetCoreFactory">
+    <h3><dfn>DatasetCoreFactory</dfn> interface</h3>
+
+    <pre class="idl">
+    interface DatasetCoreFactory {
+      DatasetCore dataset (optional sequence&lt;Quad&gt; quads);
+    };
+    </pre>
+
+    <p>
+      <code>DatasetCoreFactory</code> provides a <code>dataset</code> method to create instances of <code>DatasetCore</code>.
+    </p>
+
+    <p>
+      <dfn>dataset</dfn>
+    </p>
+    <p>Returns a new dataset and imports all quads, if given.</p>
+  </section>
+
   <section data-dfn-for="Dataset">
     <h3><dfn>Dataset</dfn> interface</h3>
 
