@@ -220,7 +220,7 @@
       <dfn>difference</dfn>
     </p>
     <p>Returns a new dataset that contains alls quads from the current dataset, not included in the given dataset.</p>
-    <div class="note">The given dataset must not be mutated during processing.</div>
+    <div class="note">The given dataset and its content must be treated as immutable (do not cause mutations by calling e.g. `.add()` or `.delete()` on it, do not modify the quads you get out of it).</div>
 
     <p>
       <dfn>equals</dfn>
