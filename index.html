@@ -162,7 +162,7 @@
       <dfn>dataset</dfn>
     </p>
     <p>Returns a new dataset and imports all quads, if given.</p>
-    <div class="note">The given sequence must not be mutated during import.</div>
+    <div class="note">The given sequence must be treated as immutable (do not `.pop()`, `.splice()`, `.shift()`, etc).</div>
   </section>
 
   <section data-dfn-for="Dataset">
