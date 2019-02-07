@@ -162,6 +162,7 @@
       <dfn>dataset</dfn>
     </p>
     <p>Returns a new dataset and imports all quads, if given.</p>
+    <div class="note">The given sequence must be treated as immutable (do not `.pop()`, `.splice()`, `.shift()`, etc).</div>
   </section>
 
   <section data-dfn-for="Dataset">
@@ -204,6 +205,7 @@
     <p>Imports the <code>quads</code> into this dataset.</p>
     <p>This method returns the dataset instance it was called on.</p>
     <p>This method differs from <a>Dataset.union</a> in that it adds all <code>quads</code> to the current instance, rather than combining <code>quads</code> and the current instance to create a new instance.</p>
+    <div class="note">The given sequence must be treated as immutable (do not `.pop()`, `.splice()`, `.shift()`, etc).</div>
 
     <p>
       <dfn>deleteMatches</dfn>
@@ -218,12 +220,14 @@
       <dfn>difference</dfn>
     </p>
     <p>Returns a new dataset that contains alls quads from the current dataset, not included in the given dataset.</p>
+    <div class="note">The given dataset and its content must be treated as immutable (do not cause mutations by calling e.g. `.add()` or `.delete()` on it, do not modify the quads you get out of it).</div>
 
     <p>
       <dfn>equals</dfn>
     </p>
     <p>Returns true if the current instance contains the same graph structure as the given dataset.</p>
     <p>Blank Nodes will be normalized.</p>
+    <div class="note">The given dataset and its content must be treated as immutable (do not cause mutations by calling e.g. `.add()` or `.delete()` on it, do not modify the quads you get out of it).</div>
 
     <p>
       <dfn>every</dfn>
@@ -255,6 +259,7 @@
       <dfn>intersection</dfn>
     </p>
     <p>Returns a new dataset containing alls quads from the current dataset that are also included in the given dataset.</p>
+    <div class="note">The given dataset and its content must be treated as immutable (do not cause mutations by calling e.g. `.add()` or `.delete()` on it, do not modify the quads you get out of it).</div>
 
     <p>
       <dfn>map</dfn>
@@ -305,6 +310,7 @@
       <dfn>union</dfn>
     </p>
     <p>Returns a new <a>Dataset</a> that is a concatenation of this dataset and the <code>quads</code> given as an argument.</p>
+    <div class="note">The given dataset and its content must be treated as immutable (do not cause mutations by calling e.g. `.add()` or `.delete()` on it, do not modify the quads you get out of it).</div>
   </section>
 
   <section data-dfn-for="DatasetFactory">
