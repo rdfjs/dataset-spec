@@ -180,6 +180,7 @@
     <pre class="idl">
     interface Dataset : DatasetCore {
       Dataset                           addAll ((Dataset or sequence&lt;Quad&gt;) quads);
+      boolean                           contains (Dataset other);
       Dataset                           deleteMatches (optional Term subject, optional Term predicate, optional Term object, optional Term graph);
       Dataset                           difference (Dataset other);
       boolean                           equals (Dataset other);
@@ -215,6 +216,13 @@
     <p>This method returns the dataset instance it was called on.</p>
     <p>This method differs from <a>Dataset.union</a> in that it adds all <code>quads</code> to the current instance, rather than combining <code>quads</code> and the current instance to create a new instance.</p>
     <div class="note">The given sequence must be treated as immutable (do not <code>.pop()</code>, <code>.splice()</code>, <code>.shift()</code>, etc).</div>
+
+    <p>
+      <dfn>contains</dfn>
+    </p>
+    <p>Returns true if the current instance is a superset of the given dataset; differently put: if the given dataset is a subset of, is contained in the current dataset.</p>
+    <p>Blank Nodes will be normalized.</p>
+    <div class="note">The given dataset and its content must be treated as immutable (do not cause mutations by calling e.g. <code>.add()</code> or <code>.delete()</code> on it, do not modify the quads you get out of it).</div>
 
     <p>
       <dfn>deleteMatches</dfn>
