@@ -192,7 +192,6 @@
       Dataset                           map (QuadMapIteratee iteratee);
       any                               reduce (QuadReduceIteratee iteratee, optional any initialValue);
       boolean                           some (QuadFilterIteratee iteratee);
-      sequence&lt;Quad&gt;                    toArray ();
       String                            toCanonical ();
       Stream                            toStream ();
       String                            toString ();
@@ -300,12 +299,6 @@
     <p>Existential quantification method, tests whether some quads in the dataset pass the test implemented by the provided <code>iteratee</code>.</p>
     <p>This method immediately returns boolean true once a quad that passes the test is found.</p>
     <p>Note: This method is aligned with Array.prototype.some() in ECMAScript-262.</p>
-
-    <p>
-      <dfn>toArray</dfn>
-    </p>
-    <p>Returns the set of quads within the dataset as a host language native sequence, for example an Array in ECMAScript-262.</p>
-    <p>Note: Since a <a>DatasetCore</a> is an unordered set, the order of the quads within the returned sequence is arbitrary.</p>
 
     <p>
       <dfn>toCanonical</dfn>
