@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>RDF/JS: Dataset specification 1.0</title>
-  <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
   <script class="remove">
     var respecConfig = {
       specStatus: "CG-FINAL",
@@ -56,8 +56,7 @@
           href: "https://github.com/rdfjs/dataset-spec"
         }]
       }],
-      wg: "RDF JavaScript Libraries Community Group",
-      wgURI: "https://www.w3.org/community/rdfjs/",
+      group: "cg/rdfjs",
       wgPublicList: "public-rdfjs",
       maxTocLevel: 2
     };
@@ -88,12 +87,13 @@
     <h3><dfn>DatasetCore</dfn> interface</h3>
 
     <pre class="idl">
+    [Exposed=(Window,Worker)]
     interface DatasetCore {
       readonly attribute unsigned long  size;
       Dataset                           add (Quad quad);
       Dataset                           delete (Quad quad);
       boolean                           has (Quad quad);
-      Dataset                           match (optional Term? subject, optional Term? predicate, optional Term? object, optional Term? graph);
+      Dataset                           match (optional Term? subject, optional Term? predicate, optional Term? _object, optional Term? graph);
 
       iterable&lt;Quad&gt;;
     };
@@ -145,6 +145,7 @@
     <h3><dfn>DatasetCoreFactory</dfn> interface</h3>
 
     <pre class="idl">
+    [Exposed=(Window,Worker)]
     interface DatasetCoreFactory {
       DatasetCore dataset (optional sequence&lt;Quad&gt; quads);
     };
@@ -174,23 +175,23 @@
     <h3><dfn>Dataset</dfn> interface</h3>
 
     <pre class="idl">
+    [Exposed=(Window,Worker)]
     interface Dataset : DatasetCore {
       Dataset                           addAll ((Dataset or sequence&lt;Quad&gt;) quads);
       boolean                           contains (Dataset other);
-      Dataset                           deleteMatches (optional Term subject, optional Term predicate, optional Term object, optional Term graph);
+      Dataset                           deleteMatches (optional Term subject, optional Term predicate, optional Term _object, optional Term graph);
       Dataset                           difference (Dataset other);
       boolean                           equals (Dataset other);
       boolean                           every (QuadFilterIteratee iteratee);
       Dataset                           filter (QuadFilterIteratee iteratee);
-      void                              forEach (QuadRunIteratee iteratee);
+      undefined                         forEach (QuadRunIteratee iteratee);
       Promise&lt;Dataset&gt;                  import (Stream stream);
       Dataset                           intersection (Dataset other);
       Dataset                           map (QuadMapIteratee iteratee);
       any                               reduce (QuadReduceIteratee iteratee, optional any initialValue);
       boolean                           some (QuadFilterIteratee iteratee);
-      String                            toCanonical ();
+      DOMString                         toCanonical ();
       Stream                            toStream ();
-      String                            toString ();
       Dataset                           union (Dataset quads);
     };
     </pre>
@@ -200,10 +201,15 @@
       If a <a>Dataset</a> implementation acts as a wrapper for a <a>DatasetCore</a>, the wrapped dataset methods should be used.
     </p>
 
+    <p>
+      <b><code>toString</code></b>
+      <p>Returns an N-Quads string representation of the dataset.</p>
+      <p>No prior normalization is required, therefore the results for the same quads may vary depending on the Dataset implementation.</p>
+    </p>
+
     <h3>Attributes</h3>
 
     <h3>Methods</h3>
-
     <p>
       <dfn>addAll</dfn>
     </p>
@@ -307,12 +313,6 @@
     <p>Returns a stream that contains all quads of the dataset.</p>
 
     <p>
-      <dfn>toString</dfn>
-    </p>
-    <p>Returns an N-Quads string representation of the dataset.</p>
-    <p>No prior normalization is required, therefore the results for the same quads may vary depending on the Dataset implementation.</p>
-
-    <p>
       <dfn>union</dfn>
     </p>
     <p>Returns a new <a>Dataset</a> that is a concatenation of this dataset and the <code>quads</code> given as an argument.</p>
@@ -323,6 +323,7 @@
     <h3><dfn>DatasetFactory</dfn> interface</h3>
 
     <pre class="idl">
+    [Exposed=(Window,Worker)]
     interface DatasetFactory : DataFactory {
       Dataset dataset (optional (Dataset or sequence&lt;Quad&gt;) quads);
     };
@@ -338,6 +339,7 @@
     <h3><dfn>QuadFilterIteratee</dfn> interface</h3>
 
     <pre class="idl">
+    [Exposed=(Window,Worker)]
     interface QuadFilterIteratee {
       boolean test (Quad quad, Dataset dataset);
     };
@@ -353,6 +355,7 @@
     <h3><dfn>QuadMapIteratee</dfn> interface</h3>
 
     <pre class="idl">
+    [Exposed=(Window,Worker)]
     interface QuadMapIteratee {
       Quad map (Quad quad, Dataset dataset);
     };
@@ -369,6 +372,7 @@
     <h3><dfn>QuadReduceIteratee</dfn> interface</h3>
 
     <pre class="idl">
+    [Exposed=(Window,Worker)]
     interface QuadReduceIteratee {
       any run (any accumulator, Quad quad, Dataset dataset);
     };
@@ -384,8 +388,9 @@
     <h3><dfn>QuadRunIteratee</dfn> interface</h3>
 
     <pre class="idl">
+    [Exposed=(Window,Worker)]
     interface QuadRunIteratee {
-      void run (Quad quad, Dataset dataset);
+      undefined run (Quad quad, Dataset dataset);
     };
     </pre>
 
@@ -414,11 +419,30 @@
   </section>
 </section>
 
+<section id="conformance"></section>
+
 <section class='appendix'>
   <h2>Acknowledgements</h2>
   <p>
     The authors would like to thank the authors of the <a href="https://www.w3.org/TR/rdf-interfaces/">RDF Interfaces</a> specification.
     Many concepts and definitions were adopted from that specification.
+  </p>
+</section>
+
+<section class='appendix'>
+  <h2>WebIDL references</h2>
+  <p>
+    The interfaces in this spec make use of the
+    <dfn>DataFactory</dfn>,
+    <dfn>Quad</dfn>, and
+    <dfn>Term</dfn>
+    interfaces from the <a href="https://rdf.js.org/data-model-spec/">RDF/JS Data model specification</a>.
+  </p>
+
+  <p>
+    The interfaces in this spec make use of the
+    <dfn>Stream</dfn>
+    interface from the <a href="https://nodejs.org/api/">Node.js API</a>.
   </p>
 </section>
 </body>
